@@ -1,5 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Primary colors -->
+    <color name="primary">#00bcd4</color>          <!-- Primary color -->
+    <color name="primary_dark">#0097a7</color>      <!-- Dark primary color -->
+    <color name="primary_light">#b2ebf2</color>     <!-- Light primary color -->
+
+    <!-- Text colors -->
+    <color name="text_primary">#212121</color>       <!-- Primary text color -->
+    <color name="text_secondary">#757575</color>     <!-- Secondary text color -->
+    <color name="text_white">#FFFFFF</color>         <!-- White text color -->
+
+    <!-- Accent color -->
+    <color name="accent">#9e9e9e</color>             <!-- Accent color -->
+
+    <!-- Divider color -->
+    <color name="divider">#BDBDBD</color>             <!-- Divider color -->
 </resources>

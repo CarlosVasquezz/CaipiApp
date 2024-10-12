@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <TextView
+        android:id="@+id/header_guarderia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Guardería"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:background="#2196F3"
+        android:textColor="#FFFFFF"
+        android:padding="8dp" />
+
+    <ImageView
+        android:layout_width="115dp"
+        android:layout_height="123dp"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:src="@drawable/ic_person" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido a la Guardería"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+
+        <Button
+            android:id="@+id/btn_asistencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asistencia"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#FBC02D"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btn_actividades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actividades"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_perfil_ninos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Perfil de los niños"
+        android:textColor="#000"
+        android:backgroundTint="#FFEB3B"
+        android:textAllCaps="false"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tv_resumen_actividades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resumen de Actividades Programadas"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F1F1F1"
+        android:padding="16dp"
+        android:layout_marginTop="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesión"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FF5722"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

@@ -1,4 +1,4 @@
 package com.example.caipiapp
 
-class AdminPanelActivity {
+class AttendanceActivity {
 }

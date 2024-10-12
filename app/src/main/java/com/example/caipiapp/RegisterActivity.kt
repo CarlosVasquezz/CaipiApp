@@ -71,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
                                         putExtra("USER_ID", userId) // Pasar el ID del usuario
                                     }
                                 } else {
-                                    Intent(this, AdminPanelActivity::class.java) // Reemplaza esto con la actividad del admin
+                                    Intent(this, PlayschoolActivity::class.java) // Reemplaza esto con la actividad del admin
                                 }
                                 startActivity(intent)
                                 finish()

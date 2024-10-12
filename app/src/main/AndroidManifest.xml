@@ -21,6 +21,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ChildDataActivity" />
         <activity android:name=".ChildInfoActivity" />
+        <activity android:name=".PlayschoolActivity" />
+        <activity android:name=".ChildProfileActivity" />
+        <activity android:name=".ActivitiesActivity" />
+        <activity android:name=".AddActivityActivity" />
 
     </application>
 </manifest>

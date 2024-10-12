@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                     val role = snapshot.getValue(String::class.java)
                     if (role == "admin") {
                         // Redirigir al panel del admin
-                        val intent = Intent(this@LoginActivity, AdminPanelActivity::class.java)
+                        val intent = Intent(this@LoginActivity, PlayschoolActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else if (role == "user") {

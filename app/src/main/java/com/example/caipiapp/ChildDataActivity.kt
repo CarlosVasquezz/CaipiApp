@@ -3,8 +3,10 @@ package com.example.caipiapp
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +20,7 @@ import java.util.*
 class ChildDataActivity : AppCompatActivity() {
 
     private lateinit var childNameEditText: EditText
-    private lateinit var childGenderEditText: EditText
+    private lateinit var childGenderSpinner: Spinner // Cambiar EditText a Spinner
     private lateinit var childBirthDateEditText: EditText
     private lateinit var childPhoneEditText: EditText
     private lateinit var childParentsEditText: EditText
@@ -35,7 +37,7 @@ class ChildDataActivity : AppCompatActivity() {
 
         // Inicialización de vistas
         childNameEditText = findViewById(R.id.childNameEditText)
-        childGenderEditText = findViewById(R.id.childGenderEditText)
+        childGenderSpinner = findViewById(R.id.childGenderSpinner) // Inicializar Spinner
         childBirthDateEditText = findViewById(R.id.childBirthDateEditText)
         childPhoneEditText = findViewById(R.id.childPhoneEditText)
         childParentsEditText = findViewById(R.id.childParentsEditText)
@@ -47,16 +49,24 @@ class ChildDataActivity : AppCompatActivity() {
         userId = auth.currentUser?.uid ?: ""
         database = FirebaseDatabase.getInstance().reference
 
+        // Configuración del Spinner
+        setupGenderSpinner()
+
         saveButton.setOnClickListener {
             saveChildData()
         }
-
     }
 
+    private fun setupGenderSpinner() {
+        val genders = arrayOf("Masculino", "Femenino") // Opciones de género
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genders)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        childGenderSpinner.adapter = adapter
+    }
 
     private fun saveChildData() {
         val name = childNameEditText.text.toString()
-        val gender = childGenderEditText.text.toString()
+        val gender = childGenderSpinner.selectedItem.toString() // Obtener género del Spinner
         val birthDate = childBirthDateEditText.text.toString()
         val phone = childPhoneEditText.text.toString()
         val parents = childParentsEditText.text.toString()
@@ -85,8 +95,6 @@ class ChildDataActivity : AppCompatActivity() {
             Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
     private fun calculateAge(birthDate: String): Int {
         return try {

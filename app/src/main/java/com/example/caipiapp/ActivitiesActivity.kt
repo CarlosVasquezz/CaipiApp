@@ -2,12 +2,12 @@ package com.example.caipiapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
-import android.widget.Button
-import android.widget.Toast
 
 class ActivitiesActivity : AppCompatActivity() {
 
@@ -47,19 +47,38 @@ class ActivitiesActivity : AppCompatActivity() {
 
                 // Iterar sobre cada actividad en Firebase
                 for (activitySnapshot in snapshot.children) {
+                    val activityId = activitySnapshot.key ?: "" // Obtener el ID de la actividad
                     val nombre = activitySnapshot.child("nombre_actividad").value.toString()
                     val fecha = activitySnapshot.child("fecha_actividad").value.toString()
                     val hora = activitySnapshot.child("hora_actividad").value.toString()
                     val descripcion = activitySnapshot.child("descripcion_actividad").value.toString()
 
-                    // Crear una nueva vista TextView para cada actividad
+                    // Crear un LinearLayout para cada actividad
+                    val activityLayout = LinearLayout(this@ActivitiesActivity)
+                    activityLayout.orientation = LinearLayout.VERTICAL
+                    activityLayout.setPadding(0, 16, 0, 16)
+
+                    // Crear un TextView para mostrar la actividad
                     val activityTextView = TextView(this@ActivitiesActivity)
                     activityTextView.text = "$nombre\nFecha: $fecha - Hora: $hora\nDescripción: $descripcion"
                     activityTextView.textSize = 16f
-                    activityTextView.setPadding(0, 16, 0, 16)
 
-                    // Añadir el TextView al LinearLayout
-                    activitiesLayout.addView(activityTextView)
+                    // Crear un botón para registrar asistencia
+                    val attendanceButton = Button(this@ActivitiesActivity)
+                    attendanceButton.text = "Registrar Asistencia"
+                    attendanceButton.setOnClickListener {
+                        // Crear un Intent para iniciar la AttendanceActivity
+                        val intent = Intent(this@ActivitiesActivity, AttendanceActivity::class.java)
+                        intent.putExtra("ACTIVITY_ID", activityId) // Pasar el ID de la actividad
+                        startActivity(intent)
+                    }
+
+                    // Añadir el TextView y el botón al LinearLayout de la actividad
+                    activityLayout.addView(activityTextView)
+                    activityLayout.addView(attendanceButton)
+
+                    // Añadir el LinearLayout de la actividad al LinearLayout principal
+                    activitiesLayout.addView(activityLayout)
                 }
             }
 

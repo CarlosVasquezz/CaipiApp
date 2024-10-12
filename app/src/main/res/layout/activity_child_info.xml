@@ -102,6 +102,25 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- Título de Actividades -->
+        <TextView
+            android:id="@+id/activitiesTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actividades a las que asistió"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"
+            android:textColor="?android:attr/textColorPrimary" />
+
+        <!-- LinearLayout para mostrar las actividades -->
+        <LinearLayout
+            android:id="@+id/attendanceLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp" />
+
         <!-- Botón de Cerrar Sesión -->
         <Button
             android:id="@+id/logoutButton"

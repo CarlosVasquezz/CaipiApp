@@ -1,8 +1,10 @@
 package com.example.caipiapp.model
 
 data class Activity(
-    var nombre_actividad: String? = null,
-    var fecha_actividad: String? = null,
-    var hora_actividad: String? = null,
-    var descripcion_actividad: String? = null
+    val nombre_actividad: String = "",
+    val fecha_actividad: String = "",
+    val hora_actividad: String = "",
+    val descripcion_actividad: String = "",
+    val asistencia: Map<String, Boolean> = mapOf() // 'true' para asistió, 'false' para no asistió
 )
+

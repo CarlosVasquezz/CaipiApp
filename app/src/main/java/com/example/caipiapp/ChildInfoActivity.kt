@@ -1,14 +1,16 @@
 package com.example.caipiapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.caipiapp.model.Child
+import com.example.caipiapp.model.Activity // Asegúrate de tener esta clase definida para las actividades
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 
 class ChildInfoActivity : AppCompatActivity() {
 
@@ -19,6 +21,7 @@ class ChildInfoActivity : AppCompatActivity() {
     private lateinit var childPhoneTextView: TextView
     private lateinit var childParentsTextView: TextView
     private lateinit var logoutButton: Button
+    private lateinit var attendanceLayout: LinearLayout // LinearLayout para mostrar las actividades
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
@@ -35,6 +38,7 @@ class ChildInfoActivity : AppCompatActivity() {
         childPhoneTextView = findViewById(R.id.childPhoneTextView)
         childParentsTextView = findViewById(R.id.childParentsTextView)
         logoutButton = findViewById(R.id.logoutButton)
+        attendanceLayout = findViewById(R.id.attendanceLayout) // Inicializa el layout para las actividades
 
         // Inicialización de Firebase
         auth = FirebaseAuth.getInstance()
@@ -45,8 +49,13 @@ class ChildInfoActivity : AppCompatActivity() {
 
         logoutButton.setOnClickListener {
             auth.signOut()
+            // Iniciar la actividad de inicio de sesión
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            // Finalizar la actividad actual
             finish()
         }
+
     }
 
     private fun fetchChildData() {
@@ -59,6 +68,7 @@ class ChildInfoActivity : AppCompatActivity() {
                     val child = childSnapshot.getValue(Child::class.java)
                     if (child != null) {
                         displayChildData(child) // Mostrar datos del niño
+                        loadChildActivities(childSnapshot.key) // Cargar actividades del niño
                     }
                 }
             } else {
@@ -69,6 +79,50 @@ class ChildInfoActivity : AppCompatActivity() {
             Log.e("ChildInfoActivity", "Error al acceder a la base de datos: ${error.message}")
             showErrorLoadingInfo()
         }
+    }
+
+    private fun loadChildActivities(childId: String?) {
+        // Limpia las actividades anteriores antes de cargar nuevas
+        attendanceLayout.removeAllViews()
+
+        // Obtener las actividades de la base de datos
+        val activitiesReference = FirebaseDatabase.getInstance().getReference("actividades")
+        activitiesReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (activitySnapshot in snapshot.children) {
+                        val activity = activitySnapshot.getValue(Activity::class.java)
+                        if (activity != null) {
+                            // Crear un TextView para mostrar la información de la actividad
+                            val activityInfo = StringBuilder()
+                            activityInfo.append("Actividad: ${activity.nombre_actividad}\n")
+                            activityInfo.append("Fecha: ${activity.fecha_actividad}\n")
+                            activityInfo.append("Hora: ${activity.hora_actividad}\n")
+
+                            // Comprobar la asistencia del niño
+                            val childAttendance = activitySnapshot.child("asistencias").child(childId ?: "")
+                            if (childAttendance.exists()) {
+                                val attendanceStatus = childAttendance.getValue(String::class.java) ?: "Sin estado"
+                                activityInfo.append("Asistencia: $attendanceStatus\n")
+                            } else {
+                                activityInfo.append("Asistencia: No registrada\n")
+                            }
+
+                            // Agregar el TextView al LinearLayout de asistencia
+                            val activityTextView = TextView(this@ChildInfoActivity)
+                            activityTextView.text = activityInfo.toString()
+                            attendanceLayout.addView(activityTextView)
+                        }
+                    }
+                } else {
+                    Log.d("ChildInfoActivity", "No se encontraron actividades.")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("ChildInfoActivity", "Error al cargar actividades: ${error.message}")
+            }
+        })
     }
 
     private fun clearChildInfo() {

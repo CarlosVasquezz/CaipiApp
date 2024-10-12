@@ -1,63 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
+    <!-- Barra superior con el botón de regresar y el título -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#2196F3">
-
-            <Button
-                android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_black_arrow"
-                android:background="@null"
-                android:padding="8dp"/>
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="44dp"
-                android:text="Actividades"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#2196F3">
 
         <Button
-            android:id="@+id/btn_add_activity"
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Añadir Actividad"/>
+            android:drawableLeft="@drawable/ic_black_arrow"
+            android:background="@null"
+            android:padding="8dp"/>
 
         <TextView
-            android:id="@+id/tv_programmed_activities"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:text="Actividades Programadas"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="44dp"
+            android:text="Actividades"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
 
-        <!-- Contenedor para las actividades que se cargarán dinámicamente -->
+    <!-- Botón para añadir nueva actividad -->
+    <Button
+        android:id="@+id/btn_add_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Añadir Actividad"
+        android:layout_marginTop="16dp"
+        android:textColor="#FFFFFF" />
+
+    <!-- Título de la sección de actividades programadas -->
+    <TextView
+        android:id="@+id/tv_programmed_activities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"
+        android:text="Actividades Programadas"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Contenedor para las actividades que se cargarán dinámicamente -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
         <LinearLayout
             android:id="@+id/activities_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"/>
-    </LinearLayout>
+    </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

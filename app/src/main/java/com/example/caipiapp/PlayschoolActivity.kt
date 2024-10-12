@@ -33,7 +33,6 @@ class PlayschoolActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference
 
         // Referencias a los botones y vistas
-        val btnCalendario: Button = findViewById(R.id.btn_calendario)
         val btnAsistencia: Button = findViewById(R.id.btn_asistencia)
         val btnActividades: Button = findViewById(R.id.btn_actividades)
         val btnPerfilNinos: Button = findViewById(R.id.btn_perfil_ninos)
@@ -44,8 +43,9 @@ class PlayschoolActivity : AppCompatActivity() {
 
         // Configurar los listeners para los botones
 
+
         btnAsistencia.setOnClickListener {
-            startActivity(Intent(this, AttendanceActivity::class.java))
+            startActivity(Intent(this, AttendanceListActivity::class.java))
         }
 
         btnActividades.setOnClickListener {

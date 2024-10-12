@@ -1,37 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
-    <EditText
-        android:id="@+id/et_activity_name"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar Nueva Actividad"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:textColor="#2196F3"/>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre de la actividad" />
+        android:layout_marginBottom="16dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="8dp">
 
-    <EditText
-        android:id="@+id/et_activity_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Fecha (DD/MM/YYYY)" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_activity_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Hora (HH:MM)" />
+            <EditText
+                android:id="@+id/et_activity_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre de la actividad"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/et_activity_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descripción de la actividad" />
+            <EditText
+                android:id="@+id/et_activity_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Fecha (DD/MM/YYYY)"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/et_activity_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hora (HH:MM)"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/et_activity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Descripción de la actividad"
+                android:background="@drawable/edittext_background"
+                android:padding="10dp"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Actividad" />
+        android:text="Guardar Actividad"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#2196F3"
+        android:padding="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
 </LinearLayout>

@@ -25,6 +25,7 @@
         <activity android:name=".ChildProfileActivity" />
         <activity android:name=".ActivitiesActivity" />
         <activity android:name=".AddActivityActivity" />
-
+        <activity android:name=".AttendanceActivity" />
+        <activity android:name=".AttendanceListActivity" />
     </application>
 </manifest>

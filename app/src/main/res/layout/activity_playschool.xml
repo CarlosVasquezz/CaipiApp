@@ -40,7 +40,6 @@
         android:gravity="center"
         android:layout_marginTop="16dp">
 
-
         <Button
             android:id="@+id/btn_asistencia"
             android:layout_width="wrap_content"

@@ -1,19 +1,14 @@
 package com.example.caipiapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.caipiapp.model.Child
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class ChildInfoActivity : AppCompatActivity() {
 
@@ -26,11 +21,13 @@ class ChildInfoActivity : AppCompatActivity() {
     private lateinit var logoutButton: Button
 
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_child_info)
 
+        // Inicialización de vistas
         childNameTextView = findViewById(R.id.childNameTextView)
         childAgeTextView = findViewById(R.id.childAgeTextView)
         childGenderTextView = findViewById(R.id.childGenderTextView)
@@ -39,39 +36,48 @@ class ChildInfoActivity : AppCompatActivity() {
         childParentsTextView = findViewById(R.id.childParentsTextView)
         logoutButton = findViewById(R.id.logoutButton)
 
-        // Obtener el ID del usuario
-        val userId = intent.getStringExtra("USER_ID") ?: return
+        // Inicialización de Firebase
+        auth = FirebaseAuth.getInstance()
+        val userId = auth.currentUser?.uid ?: return
         databaseReference = FirebaseDatabase.getInstance().getReference("users/$userId/children")
 
-        fetchChildData(userId)
+        fetchChildData()
 
         logoutButton.setOnClickListener {
-            // Implementar el cierre de sesión
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
+            auth.signOut()
             finish()
         }
     }
 
-    private fun fetchChildData(userId: String) {
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    for (childSnapshot in snapshot.children) {
-                        val child = childSnapshot.getValue(Child::class.java)
-                        if (child != null) {
-                            displayChildData(child)
-                        }
-                    }
-                } else {
-                    Log.d("ChildInfoActivity", "No se pudo encontrar información del niño.")
-                }
-            }
+    private fun fetchChildData() {
+        // Limpiar contenido previo antes de hacer la consulta
+        clearChildInfo()
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("ChildInfoActivity", "Error al acceder a la base de datos: ${error.message}")
+        databaseReference.get().addOnSuccessListener { snapshot ->
+            if (snapshot.exists()) {
+                for (childSnapshot in snapshot.children) {
+                    val child = childSnapshot.getValue(Child::class.java)
+                    if (child != null) {
+                        displayChildData(child) // Mostrar datos del niño
+                    }
+                }
+            } else {
+                Log.d("ChildInfoActivity", "No se pudo encontrar información del niño.")
+                showNoChildInfo()
             }
-        })
+        }.addOnFailureListener { error ->
+            Log.e("ChildInfoActivity", "Error al acceder a la base de datos: ${error.message}")
+            showErrorLoadingInfo()
+        }
+    }
+
+    private fun clearChildInfo() {
+        childNameTextView.text = "Nombre: "
+        childAgeTextView.text = "Edad: "
+        childGenderTextView.text = "Género: "
+        childBirthDateTextView.text = "Fecha de nacimiento: "
+        childPhoneTextView.text = "Teléfono: "
+        childParentsTextView.text = "Padres: "
     }
 
     private fun displayChildData(child: Child) {
@@ -81,5 +87,15 @@ class ChildInfoActivity : AppCompatActivity() {
         childBirthDateTextView.text = "Fecha de nacimiento: ${child.birthDate}"
         childPhoneTextView.text = "Teléfono: ${child.phone}"
         childParentsTextView.text = "Padres: ${child.parents}"
+    }
+
+    private fun showNoChildInfo() {
+        clearChildInfo()
+        childNameTextView.text = "No hay información del niño registrada."
+    }
+
+    private fun showErrorLoadingInfo() {
+        clearChildInfo()
+        childNameTextView.text = "Error al cargar la información."
     }
 }

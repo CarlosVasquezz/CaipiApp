@@ -5,45 +5,106 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar Información del Niño"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre:"
+        android:textSize="18sp" />
+
     <EditText
         android:id="@+id/childNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre del niño" />
+        android:hint="Ingresa el nombre"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="16dp" />
 
-    <EditText
-        android:id="@+id/childAgeEditText"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Edad" />
+        android:text="Género:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/childGenderEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Género" />
+        android:hint="Ingresa el género"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha de Nacimiento (dd/MM/yyyy):"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/childBirthDateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de nacimiento" />
+        android:hint="Ingresa la fecha de nacimiento"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teléfono:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/childPhoneEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Teléfono" />
+        android:hint="Ingresa el número de teléfono"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Padres:"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/childParentsEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Padres" />
+        android:hint="Ingresa los nombres de los padres"
+        android:padding="10dp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginBottom="24dp" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar" />
+        android:text="Guardar Información"
+        android:textColor="@android:color/white"
+        android:padding="10dp" />
+
+
+    <TextView
+        android:id="@+id/childInfoTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Información del Niño"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:background="@android:color/darker_gray" />
+
 </LinearLayout>

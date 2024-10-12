@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
                     Log.d("RegisterActivity", "createUserWithEmail:success")
                     val userId = auth.currentUser?.uid
 
-                    // Guardar el rol del usuario en la base de datos
+                    // Guardar el rol y el ID del usuario en la base de datos
                     if (userId != null) {
                         val databaseReference = FirebaseDatabase.getInstance().getReference("users/$userId")
                         databaseReference.child("role").setValue(role).addOnCompleteListener { roleTask ->
@@ -67,7 +67,9 @@ class RegisterActivity : AppCompatActivity() {
 
                                 // Redireccionar dependiendo del rol
                                 val intent = if (role == "user") {
-                                    Intent(this, ChildDataActivity::class.java) // Redirigir a ChildDataActivity
+                                    Intent(this, ChildDataActivity::class.java).apply {
+                                        putExtra("USER_ID", userId) // Pasar el ID del usuario
+                                    }
                                 } else {
                                     Intent(this, AdminPanelActivity::class.java) // Reemplaza esto con la actividad del admin
                                 }
@@ -76,7 +78,9 @@ class RegisterActivity : AppCompatActivity() {
                             } else {
                                 Log.w("RegisterActivity", "Error al guardar el rol: ${roleTask.exception?.message}")
                                 Toast.makeText(this, "Registro exitoso, pero no se pudo guardar el rol", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this, ChildDataActivity::class.java) // Asegúrate de redirigir aquí para un user
+                                val intent = Intent(this, ChildDataActivity::class.java).apply {
+                                    putExtra("USER_ID", userId) // Asegúrate de redirigir aquí para un user
+                                }
                                 startActivity(intent)
                                 finish()
                             }

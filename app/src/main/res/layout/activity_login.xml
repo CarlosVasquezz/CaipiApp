@@ -7,6 +7,14 @@
     android:gravity="center"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Logo de la aplicación"
+        android:src="@drawable/loginlogo" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
